@@ -36,6 +36,9 @@ public class ShapeList extends ArrayList<Shape> {
             // add a random Shape to the list
             this.add(getRandomShape());
         }
+        // if we try to instantiate an abstract class, we get an error
+        // because abstract classes can only be extended, not instantiated
+        // Shape theShape = new Shape();
     }
 
     // method to return a random Shape
