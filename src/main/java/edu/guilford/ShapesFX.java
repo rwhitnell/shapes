@@ -22,15 +22,27 @@ public class ShapesFX extends Application {
         ShapePane shapePane = new ShapePane();
         // shapeList is where we build the list of shapes we'll draw
         ShapeList shapeList = new ShapeList();
+        shapePane.setShapeList(shapeList);
+        shapePane.addShapes();
 
         // add all the shapes in shapeList to shapePane
-        for (Shape shape : shapeList) {
-            shapePane.addShape(shape);
-        }
+        // for (Shape shape : shapeList) {
+        //     shapePane.addShape(shape);
+        // }
 
         scene = new Scene(shapePane, 800, 600);
         stage.setScene(scene);
         stage.show();
+
+        Stage controlStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("control.fxml"));
+        Parent root = loader.load();
+        ControlController controlController = loader.getController();
+        controlController.setShapePane(shapePane);
+        Scene controlScene = new Scene(root, 300, 200);
+        controlStage.setScene(controlScene);
+        controlStage.show();
+
 
         System.out.println(shapeList);
     }

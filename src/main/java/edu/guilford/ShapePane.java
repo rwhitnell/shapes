@@ -8,6 +8,8 @@ import javafx.scene.shape.Shape;
 public class ShapePane extends Pane {
     // ShapePane does everything Pane does
 
+    private ShapeList shapeList;
+
     // constructor: this constructor essentially overrides the Pane default constructor
     public ShapePane() {
         // When a class extends another class, the first line should be asking the superclass
@@ -32,6 +34,23 @@ public class ShapePane extends Pane {
     public void clearShapes() {
         // clear all the shapes from the Pane
         this.getChildren().clear();
+    }
+
+    // set the ShapeList
+    public void setShapeList(ShapeList shapeList) {
+        this.shapeList = shapeList;
+    }
+
+    // add all the Shapes in the ShapeList to the Pane
+    public void addShapes() {
+        for (Shape shape : shapeList) {
+            this.addShape(shape);
+        }
+    }
+
+    // get the ShapeList
+    public ShapeList getShapeList() {
+        return shapeList;
     }
 
 }
