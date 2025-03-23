@@ -16,6 +16,17 @@ public class ShapePane extends Pane {
         // to run its constructor
         super(); // *this* refers to the current object; *super* refers to the superclass
         // could do other stuff here as well
+        this.setOnMouseClicked(e->{
+            System.out.println("Mouse clicked at " + e.getX() + ", " + e.getY());
+            drawShapes();
+        });
+    }
+
+    public void drawShapes() {
+        clearShapes();
+        shapeList.clear();
+        shapeList.addShapes(shapeList.getNShapes());
+        addShapes();
     }
 
     // add a Shape to the Pane

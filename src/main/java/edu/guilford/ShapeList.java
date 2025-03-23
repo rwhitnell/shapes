@@ -10,11 +10,15 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.shape.StrokeType;
 
 // ShapeList is a list of Shapes, so let's have it extend ArrayList<Shape>
 public class ShapeList extends ArrayList<Shape> {
     // Instantiate a Random object
     private Random random = new Random();
+    private int nShapes;
+    private int width;
+    private int height;
 
     // Method to return a random Color with any possible value
     public Color getRandomColor() {
@@ -26,19 +30,58 @@ public class ShapeList extends ArrayList<Shape> {
                 random.nextDouble(), random.nextDouble());
     }
 
+    public ShapeList(int width, int height) {
+        super();
+        this.width = width;
+        this.height = height;
+        nShapes = random.nextInt(40) + 10;
+        addShapes(nShapes);
+    }
+
     // constructor to add random Shape objects to the list
     public ShapeList() {
         // call the superclass constructor
         super();
         // add random Shape objects to the list (between 10 and 49)
-        int nShapes = random.nextInt(40) + 10;
+        nShapes = random.nextInt(40) + 10;
         addShapes(nShapes);
         // if we try to instantiate an abstract class, we get an error
         // because abstract classes can only be extended, not instantiated
         // Shape theShape = new Shape();
     }
 
+    // add getter for nShapes
+    public int getNShapes() {
+        return nShapes;
+    }
+
+    // add setter for nShapes
+    public void setNShapes(int nShapes) {
+        this.nShapes = nShapes;
+    }
+
+    // add getter for width
+    public int getWidth() {
+        return width;
+    }
+
+    // add setter for width
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    // add getter for height
+    public int getHeight() {
+        return height;
+    }   
+
+    // add setter for height
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public void addShapes(int nShapes) {
+        this.nShapes = nShapes;
         for (int i = 0; i < nShapes; i++) {
             // add a random Shape to the list
             this.add(getRandomShape());
@@ -48,34 +91,40 @@ public class ShapeList extends ArrayList<Shape> {
 
     // method to return a random Shape
     public Shape getRandomShape() {
+        // add a random shape
+        // generate a random number between 0 and 4
+        
+        Shape shape = new Circle();;
         int shapeChoice = random.nextInt(5);
         switch (shapeChoice) {
             case 0:
                 // circle needs a center x, center y, radius, and color
-                Circle circle = new Circle(
-                        random.nextDouble() * 800, random.nextDouble() * 600,
+                shape = new Circle(
+                        random.nextDouble() * width, random.nextDouble() * height,
                         random.nextDouble() * 100, getRandomColor());
-                return circle;
+                
             case 1:
                 // generate a random Ellipse
-                Ellipse ellipse = new Ellipse(
-                        random.nextDouble() * 800, random.nextDouble() * 600,
+                shape = new Ellipse(
+                        random.nextDouble() * width, random.nextDouble() * height,
                         random.nextDouble() * 100, random.nextDouble() * 100);
                 // set the fill color to a random color
-                ellipse.setFill(getRandomColor());
-                return ellipse;
+                shape.setFill(getRandomColor());
+                break;
+                
             case 2:
                 // generate a random Rectangle
-                Rectangle rectangle = new Rectangle(
-                        random.nextDouble() * 800, random.nextDouble() * 600,
+                shape = new Rectangle(
+                        random.nextDouble() * width, random.nextDouble() * height,
                         random.nextDouble() * 100, random.nextDouble() * 100);
                 // set the fill color to a random color
-                rectangle.setFill(getRandomColor());
-                return rectangle;
+                shape.setFill(getRandomColor());
+                break;
+                
             case 3:
                 Line line = new Line(
-                        random.nextDouble() * 800, random.nextDouble() * 600,
-                        random.nextDouble() * 800, random.nextDouble() * 600);
+                        random.nextDouble() * width, random.nextDouble() * height,
+                        random.nextDouble() * width, random.nextDouble() * height);
                 line.setStroke(getRandomColor());
                 line.setStrokeWidth(random.nextInt(10) + 2);
                 return line;
@@ -86,14 +135,22 @@ public class ShapeList extends ArrayList<Shape> {
                 double[] vertices = new double[nSides * 2];
                 // fill the array with random x and y coordinates
                 for (int i = 0; i < nSides * 2; i++) {
-                    vertices[i] = random.nextDouble() * 800;
+                    vertices[i] = random.nextDouble() * width;
                 }
-                Polygon polygon = new Polygon(vertices);
-                polygon.setFill(getRandomColor());
-                return polygon;
+                shape = new Polygon(vertices);
+                shape.setFill(getRandomColor());
+                break;
             default:
-                return null;
+            shape = new Circle(
+                random.nextDouble() * width, random.nextDouble() * height,
+                random.nextDouble() * 100, getRandomColor());
         }
+
+        shape.setStroke(Color.BLACK);
+        shape.setStrokeWidth(3);
+        shape.setStrokeType(StrokeType.OUTSIDE);
+        return shape;
+
 
     }
 

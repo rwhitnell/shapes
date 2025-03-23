@@ -21,7 +21,7 @@ public class ShapesFX extends Application {
         // shapePane is where we draw the shapes
         ShapePane shapePane = new ShapePane();
         // shapeList is where we build the list of shapes we'll draw
-        ShapeList shapeList = new ShapeList();
+        ShapeList shapeList = new ShapeList(640, 480);
         shapePane.setShapeList(shapeList);
         shapePane.addShapes();
 
@@ -33,6 +33,18 @@ public class ShapesFX extends Application {
         scene = new Scene(shapePane, 800, 600);
         stage.setScene(scene);
         stage.show();
+
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            shapeList.setWidth(newVal.intValue());
+            shapePane.drawShapes();
+        });
+
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            shapeList.setHeight(newVal.intValue());
+            shapePane.drawShapes();
+        });
+
+
 
         Stage controlStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("control.fxml"));
